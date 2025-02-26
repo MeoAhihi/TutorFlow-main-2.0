@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { useNavigation } from "react-router-dom";
 import GlobalPending from "./GlobalPending";
 function App() {
   // const { state } = useNavigation();
