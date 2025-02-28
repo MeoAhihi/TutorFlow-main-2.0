@@ -1,14 +1,13 @@
 import axios from "axios";
 
-import { ACCESS_TOKEN } from "../constants/connector";
-
 const restConnector = () => {
   const CreateRestConnector = axios.create({
-    baseURL: import.meta.env.VITE_BASE_API_URL,
+    baseURL: import.meta.env.VITE_TUTORFLOW_API_URL,
     timeout: 30000,
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Bearer " + localStorage.getItem(ACCESS_TOKEN),
+      Authorization:
+        "Bearer " + localStorage.getItem(import.meta.env.VITE_ACCESS_TOKEN),
     },
   });
 
@@ -18,7 +17,7 @@ const restConnector = () => {
     },
     (error) => {
       if (error.response && error.response.status === 401) {
-        localStorage.removeItem(ACCESS_TOKEN);
+        localStorage.removeItem(import.meta.env.VITE_ACCESS_TOKEN);
         window.location.replace("/login");
       }
       return Promise.reject(error);

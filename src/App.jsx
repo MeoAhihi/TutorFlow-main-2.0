@@ -1,13 +1,28 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
 import GlobalPending from "./GlobalPending";
-function App() {
-  // const { state } = useNavigation();
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+} from "react-router-dom";
+import Root, { loader as rootLoader } from "./routes/Root";
+import Login, { action as loginAction } from "./routes/Login";
 
-  // if (state === "loading") {
-  return <GlobalPending />;
-  // }
-  // return <h1>App</h1>;
+const router = createBrowserRouter([
+  {
+    path: "/login",
+    // loader: loginLoader,
+    action: loginAction,
+    element: <Login />,
+  },
+  {
+    path: "/",
+    loader: rootLoader,
+    element: <Root />,
+  },
+]);
+function App() {
+  return <RouterProvider router={router} />;
 }
 
 export default App;
