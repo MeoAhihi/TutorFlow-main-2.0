@@ -1,4 +1,4 @@
-import { Form } from "react-router";
+import { Form, redirect } from "react-router";
 import { login } from "../api/auth.api";
 
 async function getFormData(request) {
@@ -9,7 +9,11 @@ async function getFormData(request) {
 export async function action({ request }) {
   const data = await getFormData(request);
   const response = await login(data.email, data.password);
-  console.log(response);
+  if (response.status === 200) {
+    const { accessToken } = await response.data;
+    localStorage.setItem("jwt", accessToken);
+    return redirect("/");
+  }
   return null;
 }
 
