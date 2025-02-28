@@ -1,12 +1,8 @@
-import GlobalPending from "./GlobalPending";
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Route,
-  Link,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Root, { loader as rootLoader } from "./routes/Root";
 import Login, { action as loginAction } from "./routes/Login";
+import Register, { action as registerAction } from "./routes/Register";
+import UpdateUser, { action as updateUserAction } from "./routes/UpdateUser";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +15,16 @@ const router = createBrowserRouter([
     path: "/",
     loader: rootLoader,
     element: <Root />,
+  },
+  {
+    path: "/register",
+    action: registerAction,
+    element: <Register />,
+  },
+  {
+    path: "/user/:id/edit",
+    action: updateUserAction,
+    element: <UpdateUser />,
   },
 ]);
 function App() {

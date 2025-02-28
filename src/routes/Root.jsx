@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { Outlet, redirect } from "react-router-dom";
 
 export async function loader() {
   const jwt = localStorage.getItem("jwt");
@@ -8,5 +8,10 @@ export async function loader() {
 }
 
 export default function Root() {
-  return <h1>Welcome back, Wind Li</h1>;
+  return (
+    <>
+      <h1>Xin chào, Lý Vĩ Phong</h1>
+      <Outlet />
+    </>
+  );
 }

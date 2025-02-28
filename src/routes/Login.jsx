@@ -1,10 +1,6 @@
 import { Form, redirect } from "react-router";
 import { login } from "../api/auth.api";
-
-async function getFormData(request) {
-  const formData = await request.formData();
-  return Object.fromEntries(formData);
-}
+import { getFormData } from "../utils/formData";
 
 export async function action({ request }) {
   const data = await getFormData(request);
@@ -22,7 +18,7 @@ export default function Login() {
     <Form method="post">
       <input type="email" name="email" id="email" />
       <input type="password" name="password" id="password" />
-      <button type="submit">Login</button>
+      <button type="submit">Đăng nhập</button>
     </Form>
   );
 }
