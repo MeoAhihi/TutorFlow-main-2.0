@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Root, { loader as rootLoader } from "./routes/Root";
 import Login, { action as loginAction } from "./routes/Login";
 import Register, { action as registerAction } from "./routes/Register";
+import Root, { loader as rootLoader } from "./routes/Root";
 import UpdateUser, { action as updateUserAction } from "./routes/UpdateUser";
 
 const router = createBrowserRouter([
