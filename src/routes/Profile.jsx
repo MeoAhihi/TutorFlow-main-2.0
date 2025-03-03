@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { getSelfInformation } from "../api/users.api";
 import { useState } from "react";
 import { Modal } from "react-bootstrap"; // Assuming you have a Modal component
@@ -26,12 +26,13 @@ export default function Profile() {
           ))}
         </tbody>
       </table>
-      <DeleteButton />
+      <Link to={"/user/edit"}>Chỉnh sửa</Link>
+      <DeleteButton>Xóa Tài khoản</DeleteButton>
     </>
   );
 }
 
-function DeleteButton() {
+function DeleteButton({ children }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDeleteClick = () => {
@@ -44,7 +45,7 @@ function DeleteButton() {
 
   return (
     <>
-      <button onClick={handleDeleteClick}>Delete</button>
+      <button onClick={handleDeleteClick}>{children}</button>
 
       <Modal onClose={handleCloseModal} show={isModalOpen}>
         <p>Are you sure you want to delete?</p>

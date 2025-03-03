@@ -23,8 +23,9 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/user/:id/edit",
+    path: "/user/edit",
     action: updateUserAction,
+    loader: profileLoader,
     element: <UpdateUser />,
   },
   {
