@@ -1,5 +1,7 @@
 import { useLoaderData } from "react-router";
 import { getSelfInformation } from "../api/users.api";
+import { useState } from "react";
+import { Modal } from "react-bootstrap"; // Assuming you have a Modal component
 
 export async function loader() {
   const userInfo = await getSelfInformation();
@@ -11,7 +13,7 @@ export async function loader() {
 export default function Profile() {
   const data = useLoaderData();
   return (
-    <div className="">
+    <>
       <table>
         <tbody>
           {Object.entries(data).map(([key, value]) => (
@@ -24,6 +26,31 @@ export default function Profile() {
           ))}
         </tbody>
       </table>
-    </div>
+      <DeleteButton />
+    </>
+  );
+}
+
+function DeleteButton() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleDeleteClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <>
+      <button onClick={handleDeleteClick}>Delete</button>
+
+      <Modal onClose={handleCloseModal} show={isModalOpen}>
+        <p>Are you sure you want to delete?</p>
+        <button onClick={handleCloseModal}>Cancel</button>
+        <button>Confirm</button>
+      </Modal>
+    </>
   );
 }
