@@ -3,6 +3,7 @@ import Login, { action as loginAction } from "./routes/Login";
 import Register, { action as registerAction } from "./routes/Register";
 import Root, { loader as rootLoader } from "./routes/Root";
 import UpdateUser, { action as updateUserAction } from "./routes/UpdateUser";
+import Profile, { loader as profileLoader } from "./routes/Profile";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,11 @@ const router = createBrowserRouter([
     path: "/user/:id/edit",
     action: updateUserAction,
     element: <UpdateUser />,
+  },
+  {
+    path: "/user/profile",
+    loader: profileLoader,
+    element: <Profile />,
   },
 ]);
 function App() {
