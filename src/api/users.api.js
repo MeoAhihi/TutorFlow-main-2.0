@@ -13,3 +13,8 @@ export async function editSelfInformation(data) {
   const response = await restConnector().patch("/users", data);
   return response;
 }
+
+export async function deleteAccount() {
+  const response = await restConnector().delete("/users");
+  return response;
+}

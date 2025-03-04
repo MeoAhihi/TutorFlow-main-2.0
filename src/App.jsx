@@ -1,14 +1,24 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login, { action as loginAction } from "./routes/Login";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
+import Login, {
+  action as loginAction,
+  loader as loginLoader,
+} from "./routes/Login";
 import Register, { action as registerAction } from "./routes/Register";
 import Root, { loader as rootLoader } from "./routes/Root";
 import UpdateUser, { action as updateUserAction } from "./routes/UpdateUser";
-import Profile, { loader as profileLoader } from "./routes/Profile";
+import Profile, {
+  loader as profileLoader,
+  action as profileAction,
+} from "./routes/Profile";
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    // loader: loginLoader,
+    loader: loginLoader,
     action: loginAction,
     element: <Login />,
   },
@@ -19,6 +29,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
+    loader: loginLoader,
     action: registerAction,
     element: <Register />,
   },
@@ -31,6 +42,7 @@ const router = createBrowserRouter([
   {
     path: "/user/profile",
     loader: profileLoader,
+    action: profileAction,
     element: <Profile />,
   },
 ]);

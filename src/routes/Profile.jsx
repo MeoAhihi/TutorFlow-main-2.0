@@ -1,7 +1,17 @@
-import { Link, useLoaderData } from "react-router";
-import { getSelfInformation } from "../api/users.api";
+import { Form, Link, redirect, useLoaderData } from "react-router";
+import { deleteAccount, getSelfInformation } from "../api/users.api";
 import { useState } from "react";
 import { Modal } from "react-bootstrap"; // Assuming you have a Modal component
+import { getFormData } from "../utils/formData";
+
+export async function action({ request }) {
+  const data = await getFormData(request);
+  if (request.method === "post" && request.type === "destroy") {
+    const response = await deleteAccount();
+  }
+  localStorage.removeItem("jwt");
+  return redirect("/login");
+}
 
 export async function loader() {
   const userInfo = await getSelfInformation();
@@ -48,9 +58,12 @@ function DeleteButton({ children }) {
       <button onClick={handleDeleteClick}>{children}</button>
 
       <Modal onClose={handleCloseModal} show={isModalOpen}>
-        <p>Are you sure you want to delete?</p>
-        <button onClick={handleCloseModal}>Cancel</button>
-        <button>Confirm</button>
+        <p>Bạn có chắc sẽ xóa tài khoản của mình?</p>
+        <button onClick={handleCloseModal}>Thoát</button>
+        <Form method="POST">
+          <input type="hidden" name="type" value={"destroy"} />
+          <button type="submit">Xác nhận</button>
+        </Form>
       </Modal>
     </>
   );

@@ -2,6 +2,13 @@ import { Form, redirect } from "react-router";
 import { login } from "../api/auth.api";
 import { getFormData } from "../utils/formData";
 
+export function loader() {
+  const jwt = localStorage.getItem("jwt");
+  if (jwt) {
+    return redirect("/");
+  }
+}
+
 export async function action({ request }) {
   const data = await getFormData(request);
   const response = await login(data.email, data.password);
