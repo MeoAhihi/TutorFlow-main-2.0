@@ -13,6 +13,7 @@ import UpdateUser, { action as updateUserAction } from "./routes/UpdateUser";
 import Profile, {
   loader as profileLoader,
   action as profileAction,
+  StudentLoader,
 } from "./routes/Profile";
 
 const router = createBrowserRouter([
@@ -44,6 +45,17 @@ const router = createBrowserRouter([
     loader: profileLoader,
     action: profileAction,
     element: <Profile />,
+  },
+  {
+    path: "student/:id",
+    loader: StudentLoader,
+    element: <Profile />,
+  },
+  {
+    path: "/user/edit",
+    action: updateUserAction,
+    loader: profileLoader,
+    element: <UpdateUser />,
   },
 ]);
 function App() {

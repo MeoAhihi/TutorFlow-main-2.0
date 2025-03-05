@@ -21,13 +21,39 @@ export async function loader() {
     id: decoded.id,
     shortname: decoded.shortname,
     studentCount: students.data.length,
+    students: students.data,
   };
 }
 
 export default function Root() {
-  const { name, studentCount } = useLoaderData();
+  const { name, studentCount, students } = useLoaderData();
   return (
     <>
+      <nav>
+        <ul>
+          <li>
+            <a href="/">Trang chủ</a>
+          </li>
+          <li>
+            <h1>Học sinh</h1>
+            <ul>
+              {!studentCount
+                ? "- Chưa có học sinh -"
+                : students.map((student) => (
+                    <li key={student.id}>
+                      <a href={`/student/${student.id}`}>{student.fullname}</a>
+                    </li>
+                  ))}
+            </ul>
+          </li>
+          <li>
+            <a href="/user/profile">Profile</a>
+          </li>
+          <li>
+            <a href="/logout">Logout</a>
+          </li>
+        </ul>
+      </nav>
       <h1>Xin chào, {name}</h1>
 
       <div className="card">
@@ -36,7 +62,6 @@ export default function Root() {
         <p>học sinh</p>
       </div>
 
-      
       <Outlet />
     </>
   );

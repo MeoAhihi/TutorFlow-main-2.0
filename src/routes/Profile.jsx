@@ -3,6 +3,7 @@ import { deleteAccount, getSelfInformation } from "../api/users.api";
 import { useState } from "react";
 import { Modal } from "react-bootstrap"; // Assuming you have a Modal component
 import { getFormData } from "../utils/formData";
+import { getStudentById } from "../api/students.api";
 
 export async function action({ request }) {
   const data = await getFormData(request);
@@ -16,12 +17,21 @@ export async function action({ request }) {
 export async function loader() {
   const userInfo = await getSelfInformation();
   return {
-    ...userInfo.data,
+    data: userInfo.data,
+    editPath: "/user/edit",
+  };
+}
+export async function StudentLoader({ params }) {
+  const studentInfo = await getStudentById(params.id);
+  console.log(studentInfo);
+  return {
+    data: studentInfo.data,
+    editPath: `/student/edit/${studentInfo.data.id}`,
   };
 }
 
 export default function Profile() {
-  const data = useLoaderData();
+  const { data, editPath } = useLoaderData();
   return (
     <>
       <table>
@@ -36,7 +46,7 @@ export default function Profile() {
           ))}
         </tbody>
       </table>
-      <Link to={"/user/edit"}>Chỉnh sửa</Link>
+      <Link to={editPath}>Chỉnh sửa</Link>
       <DeleteButton>Xóa Tài khoản</DeleteButton>
     </>
   );
