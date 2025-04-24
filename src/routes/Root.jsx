@@ -1,7 +1,13 @@
-import { isExpired, decodeToken } from "react-jwt";
+import {jwtDecode} from "jwt-decode";
 import { useLoaderData } from "react-router";
 import { Outlet, redirect } from "react-router-dom";
 import { getStudentList } from "../api/students.api";
+
+function isExpired(token) {
+  const decoded = jwtDecode(token);
+  const currentTime = Date.now() / 1000;
+  return decoded.exp < currentTime;
+}
 
 export async function loader() {
   const jwt = localStorage.getItem("jwt");
@@ -11,7 +17,7 @@ export async function loader() {
   if (isExpired(jwt)) {
     return redirect("/login");
   }
-  const decoded = decodeToken(jwt);
+  const decoded = jwtDecode(jwt);
 
   const students = await getStudentList();
 
